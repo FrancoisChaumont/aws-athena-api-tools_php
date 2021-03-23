@@ -23,6 +23,7 @@ assignees: FrancoisChaumont
 - [ ] list-named-queries
 - [ ] list-databases
 - [ ] list-tables
+- [ ] all
 
 **Describe the bug**        
 *A clear and concise description of what the problem is.*
