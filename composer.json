@@ -1,0 +1,20 @@
+{
+    "name": "francoischaumont/aws-athena-api-tools",
+    "description": "Toolkit for AWS Athena using AWS SDK for PHP v3",
+    "authors": [
+        {
+            "name": "Francois Chaumont",
+            "role": "main developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "aws/aws-sdk-php": "^3.175",
+        "vlucas/phpdotenv": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "FC\\AWS\\": "src/AWS/"
+        }
+    }
+}

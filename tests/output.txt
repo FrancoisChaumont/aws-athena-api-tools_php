@@ -1,0 +1,234 @@
+The following critical operations are about to be performed:
+        - drop database aws_athena_api_tools_tests
+        - delete data under s3://QUERY_OUTPUT/aws_athena_api_tools_tests/
+Do you agree? (Y/N): Y
+
+[ cleaning previous test data ]
+
+[ list sampledb database ]
+{"Name":"sampledb","Description":"Sample database","Parameters":{"CreatedBy":"Athena","EXTERNAL":"TRUE"}}
+
+[ create database ]
+Executing query:
+6f8f8d12-bd40-439c-92eb-703df57effe7
+Query result:
+6f8f8d12-bd40-439c-92eb-703df57effe7	SUCCEEDED	00:00:00
+
+[ create data ]
+Executing queries:
+a5d0c97a-45a7-41d9-bdac-6f34bebcb7fd	2015-01-01
+8c8b6b9b-5ddc-4525-8dfa-a94ee635e56d	2015-01-02
+47bda107-03a2-4e1a-8630-51f9735ddd71	2015-01-03
+ba63262a-a3d5-44bf-8ca5-0adf9767ae6f	2015-01-04
+349711e7-a0f3-4eff-8485-f42a8a2257f6	2015-01-05
+
+Displaying queries result:
+a5d0c97a-45a7-41d9-bdac-6f34bebcb7fd	2015-01-01	SUCCEEDED	00:00:02
+8c8b6b9b-5ddc-4525-8dfa-a94ee635e56d	2015-01-02	SUCCEEDED	00:00:01
+47bda107-03a2-4e1a-8630-51f9735ddd71	2015-01-03	SUCCEEDED	00:00:01
+ba63262a-a3d5-44bf-8ca5-0adf9767ae6f	2015-01-04	SUCCEEDED	00:00:01
+349711e7-a0f3-4eff-8485-f42a8a2257f6	2015-01-05	SUCCEEDED	00:00:01
+
+[ create table for created data ]
+Executing queries:
+da54ec8f-2dc5-4d39-90d3-3dede9f7a33f	2015-01
+
+Displaying queries result:
+da54ec8f-2dc5-4d39-90d3-3dede9f7a33f	2015-01	SUCCEEDED	00:00:00
+
+[ create day partitions ]
+Executing queries:
+e5bf9a1b-236c-46d0-9e4c-ceab8da4f062	2015-01-01
+ceb28ec6-0b35-4f91-9ef7-f78610f3e1ba	2015-01-02
+cd2822b6-d8c2-47e7-97f7-84c748ecf320	2015-01-03
+2f753fc4-d00e-4bd6-8d1a-6f1e04d8e296	2015-01-04
+30303218-25d8-4895-b31f-dda81e5c8763	2015-01-05
+
+Displaying queries result:
+e5bf9a1b-236c-46d0-9e4c-ceab8da4f062	2015-01-01	SUCCEEDED	00:00:00
+ceb28ec6-0b35-4f91-9ef7-f78610f3e1ba	2015-01-02	SUCCEEDED	00:00:00
+cd2822b6-d8c2-47e7-97f7-84c748ecf320	2015-01-03	SUCCEEDED	00:00:00
+2f753fc4-d00e-4bd6-8d1a-6f1e04d8e296	2015-01-04	SUCCEEDED	00:00:00
+30303218-25d8-4895-b31f-dda81e5c8763	2015-01-05	SUCCEEDED	00:00:00
+
+[ query ]
+SELECT request_timestamp, elb_name, request_ip, request_port FROM aws_athena_api_tools_tests.sampledb_201501 LIMIT 5
+
+[ get query state ]
+953ca04e-d4f2-450d-b9b9-bd7fc30075f8	SUCCEEDED	00:00:00
+
+[ stop query ]
+Stopping query...
+953ca04e-d4f2-450d-b9b9-bd7fc30075f8	SUCCEEDED	00:00:00
+
+[ display query results ]
+"request_timestamp","elb_name","request_ip","request_port"
+"2015-01-04T16:00:01.206255Z","elb_demo_007","240.127.144.192","1230"
+"2015-01-04T16:00:01.612598Z","elb_demo_002","250.94.140.192","5727"
+"2015-01-04T16:00:02.793335Z","elb_demo_009","247.99.30.109","24344"
+"2015-01-04T16:00:03.068897Z","elb_demo_005","243.86.30.190","17123"
+"2015-01-04T16:00:03.470121Z","elb_demo_005","243.227.105.90","29529"
+
+[ query daily ]
+SELECT * FROM aws_athena_api_tools_tests.sampledb_%1$s%2$s WHERE day = '%3$s'
+Executing queries:
+3c7f27d3-c04b-4196-aba2-c43c63ff7885	2015-01-02
+c3cf6828-d2e7-4173-a605-fba5cbdad131	2015-01-03
+
+Displaying queries result:
+3c7f27d3-c04b-4196-aba2-c43c63ff7885	2015-01-02	SUCCEEDED	00:00:00
+c3cf6828-d2e7-4173-a605-fba5cbdad131	2015-01-03	SUCCEEDED	00:00:00
+
+[ display query results on s3 ]
+2021-03-19 21:42:46      34430 aws_athena_api_tools_tests/query-daily/3c7f27d3-c04b-4196-aba2-c43c63ff7885.csv
+2021-03-19 21:42:46       1166 aws_athena_api_tools_tests/query-daily/3c7f27d3-c04b-4196-aba2-c43c63ff7885.csv.metadata
+2021-03-19 21:42:45      34459 aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv
+2021-03-19 21:42:46       1166 aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv.metadata
+
+[ delete metadata files ]
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query-daily/3c7f27d3-c04b-4196-aba2-c43c63ff7885.csv.metadata
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv.metadata
+
+[ display query results on s3 without metadata files ]
+2021-03-19 21:42:46      34430 aws_athena_api_tools_tests/query-daily/3c7f27d3-c04b-4196-aba2-c43c63ff7885.csv
+2021-03-19 21:42:45      34459 aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv
+
+[ list database table like '*db_201501 ]
+{
+    "Name": "sampledb_201501",
+    "CreateTime": "2021-03-20T02:42:31+00:00",
+    "LastAccessTime": "1970-01-01T00:00:00+00:00",
+    "TableType": "EXTERNAL_TABLE",
+    "Columns": [
+        {
+            "Name": "request_timestamp",
+            "Type": "string"
+        },
+        {
+            "Name": "elb_name",
+            "Type": "string"
+        },
+        {
+            "Name": "request_ip",
+            "Type": "string"
+        },
+        {
+            "Name": "request_port",
+            "Type": "int"
+        },
+        {
+            "Name": "backend_ip",
+            "Type": "string"
+        },
+        {
+            "Name": "backend_port",
+            "Type": "int"
+        },
+        {
+            "Name": "request_processing_time",
+            "Type": "double"
+        },
+        {
+            "Name": "backend_processing_time",
+            "Type": "double"
+        },
+        {
+            "Name": "client_response_time",
+            "Type": "double"
+        },
+        {
+            "Name": "elb_response_code",
+            "Type": "string"
+        },
+        {
+            "Name": "backend_response_code",
+            "Type": "string"
+        },
+        {
+            "Name": "received_bytes",
+            "Type": "bigint"
+        },
+        {
+            "Name": "sent_bytes",
+            "Type": "bigint"
+        },
+        {
+            "Name": "request_verb",
+            "Type": "string"
+        },
+        {
+            "Name": "url",
+            "Type": "string"
+        },
+        {
+            "Name": "protocol",
+            "Type": "string"
+        },
+        {
+            "Name": "user_agent",
+            "Type": "string"
+        },
+        {
+            "Name": "ssl_cipher",
+            "Type": "string"
+        },
+        {
+            "Name": "ssl_protocol",
+            "Type": "string"
+        }
+    ],
+    "PartitionKeys": [
+        {
+            "Name": "day",
+            "Type": "string"
+        }
+    ],
+    "Parameters": {
+        "EXTERNAL": "TRUE",
+        "inputformat": "org.apache.hadoop.mapred.TextInputFormat",
+        "location": "s3:\/\/QUERY_OUTPUT\/aws_athena_api_tools_tests\/sampledb",
+        "outputformat": "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat",
+        "serde.param.serialization.format": "1",
+        "serde.serialization.lib": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+        "transient_lastDdlTime": "1616208150"
+    }
+}
+
+[ drop database + tables ]
+Executing query:
+0d736813-c213-4194-bf52-adba42d1439f
+Query result:
+0d736813-c213-4194-bf52-adba42d1439f	SUCCEEDED	00:00:00
+
+[ delete created data from s3 ]
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query-daily/3c7f27d3-c04b-4196-aba2-c43c63ff7885.csv
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query/953ca04e-d4f2-450d-b9b9-bd7fc30075f8.csv.metadata
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query/953ca04e-d4f2-450d-b9b9-bd7fc30075f8.csv
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/sampledb/2015/01/02/20210320_024222_00031_6t2y2_80ab7184-0316-4a55-9fc3-ff7d03689cb7
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query/c15b8ff2-f75c-4d51-86a0-3c717489bb4e.csv.metadata
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/sampledb/2015/01/04/20210320_024225_00032_jempt_4cd2986a-74b1-44fa-8c32-31cddcfd6413
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/sampledb/2015/01/03/20210320_024223_00029_davdh_041e9c20-402f-4687-a80c-d2383297bedd
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/sampledb/2015/01/05/20210320_024227_00094_ucpqg_80cc32cb-1466-4062-8c99-362264792735
+delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/sampledb/2015/01/01/20210320_024221_00013_kx6py_17c9132e-c671-4dec-89ec-f2563de6872a
+
+[ create named query ]
+SELECT * FROM elb_logs ORDER BY request_timestamp DESC LIMIT 352
+3a62f803-1393-4123-a4bf-d112bdd21b94
+
+[ list that named query ]
+{
+    "Name": "log sample",
+    "Description": "get the latest 352 log records",
+    "Database": "sampledb",
+    "QueryString": "SELECT * FROM elb_logs ORDER BY request_timestamp DESC LIMIT 352\n",
+    "NamedQueryId": "3a62f803-1393-4123-a4bf-d112bdd21b94",
+    "WorkGroup": "primary"
+}
+
+[ delete named query ]
+Deleting named query:
+3a62f803-1393-4123-a4bf-d112bdd21b94
+Deleted successfully
+
+Done.
