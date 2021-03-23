@@ -23,6 +23,7 @@ assignees: FrancoisChaumont
 - [ ] list-named-queries
 - [ ] list-databases
 - [ ] list-tables
+- [ ] all
 - [ ] new
 
 **Feature concerned**       
