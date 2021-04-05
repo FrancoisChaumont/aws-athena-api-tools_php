@@ -14,6 +14,8 @@ const QUERY_TYPE = \FC\AWS\Athena::QUERY_TYPE_DML;
 
 try {
     // init configuration parameters
+    $detailed = isset($options[OPTION_DETAILED]) ? true : false;
+
     if (!isset($options[OPTION_CATALOG])) { $catalog = DEFAULT_CATALOG; }
     else { $catalog = $options[OPTION_CATALOG]; }
 
@@ -25,10 +27,18 @@ try {
 
     // detail one or all databases
     if (isset($options[OPTION_DATABASE])) {
-        echo json_encode($athena->getDatabaseDetails($options[OPTION_DATABASE], $catalog)) . PHP_EOL;
+        if ($detailed) {
+            echo json_encode($athena->getDatabaseDetails($options[OPTION_DATABASE], $catalog)) . PHP_EOL;
+        } else {
+            echo $athena->getDatabaseDetails($options[OPTION_DATABASE], $catalog)['Name'] . PHP_EOL;
+        }
     } else {
         foreach($athena->listAllDatabases($catalog) as $databaseName) {
-            echo json_encode($athena->getDatabaseDetails($databaseName, $catalog)) . PHP_EOL;
+            if ($detailed) {
+                echo json_encode($athena->getDatabaseDetails($databaseName, $catalog)) . PHP_EOL;
+            } else {
+                echo $athena->getDatabaseDetails($databaseName, $catalog)['Name'] . PHP_EOL;
+            }
         }
     }
 

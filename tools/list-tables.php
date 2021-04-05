@@ -24,6 +24,8 @@ try {
     if (isset($options[OPTION_TABLE])) {
         $tables = $options[OPTION_TABLE];
     }
+
+    $detailed = isset($options[OPTION_DETAILED]) ? true : false;
     
     // AWS Athena client configuration
     $awsConfig = getAwsConfig($options);
@@ -33,7 +35,11 @@ try {
 
     // detail one or all tables
     foreach($athena->listAllTablesDetails($database, $catalog, $tables) as $tableDetails) {
-        echo json_encode($tableDetails, JSON_PRETTY_PRINT) . PHP_EOL;
+        if ($detailed) {
+            echo json_encode($tableDetails, JSON_PRETTY_PRINT) . PHP_EOL;
+        } else {
+            echo $tableDetails['Name'] . PHP_EOL;
+        }
     }
 
     exit(0);

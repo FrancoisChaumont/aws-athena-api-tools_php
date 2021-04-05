@@ -19,6 +19,7 @@ Options:
     -h/--help                               Show this help message and exit
 
     -n/--database=database_name             [OPTIONAL] Database name
+    -a/--detailed                           [OPTIONAL] Display database full details
     -k/--catalog=catalog_name               [OPTIONAL] Data source catalog
                                                        Default value: CATALOG in configuration variable file
     -p/--profile=aws_profile                [OPTIONAL] AWS profile to use credentials from
@@ -28,8 +29,8 @@ Options:
     -r/--region=aws_region                  [OPTIONAL] AWS region to connect to
                                                        Default value: REGION in configuration variable file
 
-    php %1\$s [-n DATABASE_NAME] [-k CATALOG_NAME] [-p AWS_PROFILE] [-v AWS_VERSION] [-r AWS_REGION]
-    php %1\$s [--database DATABASE_NAME] [--catalog CATALOG_NAME] [--profile AWS_PROFILE] [--version AWS_VERSION] [--region AWS_REGION]
+    php %1\$s [-n DATABASE_NAME] [-a] [-k CATALOG_NAME] [-p AWS_PROFILE] [-v AWS_VERSION] [-r AWS_REGION]
+    php %1\$s [--database DATABASE_NAME] [--detailed] [--catalog CATALOG_NAME] [--profile AWS_PROFILE] [--version AWS_VERSION] [--region AWS_REGION]
 
 Example:
     php %1\$s \
@@ -40,15 +41,17 @@ Example:
         -r us-east-1
 
     php %1\$s \
+        -a \
         -k AwsDataCatalog \
         -p default \
         -v latest \
         -r us-east-1
 EOS, INCLUDED_FILE)));
 
-$shortOpts = 'n:k:p:v:r:h';
+$shortOpts = 'n:ak:p:v:r:h';
 $longOpts = [
     'database:',
+    'detailed',
     'catalog:',
     'profile:',
     'version:',
@@ -61,6 +64,7 @@ $options = setOptions($shortOpts, $longOpts, USAGE);
 
 define('OPTION_DATABASE', isset($options['n']) ? 'n' : 'database');
 define('OPTION_CATALOG', isset($options['k']) ? 'k' : 'catalog');
+define('OPTION_DETAILED', isset($options['a']) ? 'a' : 'detailed');
 
 // Initialize AWS configuration options
 initAwsConfigOptions($options);
