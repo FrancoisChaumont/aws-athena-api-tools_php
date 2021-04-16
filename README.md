@@ -20,7 +20,6 @@
 - create partitions on non-hive or hive formatted data
 - get one or multiple queries current states
 - stop a running query
-- delete metadata files
 - create a named query
 - list & detail named queries
 - list & detail databases
@@ -80,7 +79,6 @@ Example passing year + month to constitute the table name:
 ```sql
 SELECT DATE_FORMAT(FROM_UNIXTIME(1614716423), '%%Y-%%m-%%d %%H:%%i:%%S')
 FROM database.table_name_%1$s%2$s
-LIMIT 1
 ```
 
 ## The tools

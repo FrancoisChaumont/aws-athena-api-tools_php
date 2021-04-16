@@ -70,12 +70,6 @@ See [usage](../tools/usage/stop.usage.php) or
 php stop.php -h/--help
 ```
 
-**Delete metadata files recursively from an S3 location (bucket/prefixes)**        
-See [usage](../tools/usage/delete-metadata-files.usage.sh) or
-```
-delete-metadata-files.sh -h/--help
-```
-
 **Create or delete a named query**      
 See [usage](../tools/usage/named-query.usage.php) or
 ```

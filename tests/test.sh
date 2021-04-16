@@ -39,6 +39,14 @@ if [[ $? -eq 1 ]]; then echo "Sampledb not present, exiting"; exit; fi
 
 echo
 
+# detail sampledb database
+echo "[ detail sampledb database ]"
+php ../tools/list-databases.php -n sampledb -a
+
+if [[ $? -eq 1 ]]; then echo "Sampledb not present, exiting"; exit; fi
+
+echo
+
 # create database
 echo "[ create database ]"
 php ../tools/database.php \
@@ -140,27 +148,12 @@ aws s3 --profile $AWS_PROFILE ls s3://$OUTPUT_BUCKET/$DATABASE/query-daily/ --re
 
 echo
 
-# delete metadata files
-echo "[ delete metadata files ]"
-/bin/bash ../tools/delete-metadata-files.sh \
-    -b $OUTPUT_BUCKET \
-    -f $DATABASE/query-daily
-
-if [[ $? -eq 1 ]]; then echo "Command failed, exiting"; exit; fi
-
-echo
-
-# display query results on s3
-echo "[ display query results on s3 without metadata files ]"
-aws s3 --profile $AWS_PROFILE ls s3://$OUTPUT_BUCKET/$DATABASE/query-daily/ --recursive
-
-echo
-
 # list tables
 echo "[ list database table like '*db_"$YYYY$MM" ]"
 php ../tools/list-tables.php \
     -n $DATABASE \
-    -t '*db_'$YYYY$MM
+    -t '*db_'$YYYY$MM \
+    -a
 
 if [[ $? -eq 1 ]]; then echo "Command failed, exiting"; exit; fi
 

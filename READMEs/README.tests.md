@@ -15,14 +15,12 @@ It requires the database `sampledb` and performs the following:
 6. select data from multiple days table
 7. select several days data from single day table
 8. display query result files on s3
-9. delete metadata files
-10. display query result files on s3 without metadata files
-11. detail tables in the database
-12. drop database and all tables
-13. delete data from s3
-14. create named query
-15. detail named query
-16. delete named query
+9. detail tables in the database
+10. drop database and all tables
+11. delete data from s3
+12. create named query
+13. detail named query
+14. delete named query
 
 Usage:
 ```shell

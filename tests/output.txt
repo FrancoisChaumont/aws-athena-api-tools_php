@@ -6,6 +6,9 @@ Do you agree? (Y/N): Y
 [ cleaning previous test data ]
 
 [ list sampledb database ]
+sampledb
+
+[ detail sampledb database ]
 {"Name":"sampledb","Description":"Sample database","Parameters":{"CreatedBy":"Athena","EXTERNAL":"TRUE"}}
 
 [ create database ]
@@ -84,14 +87,6 @@ c3cf6828-d2e7-4173-a605-fba5cbdad131	2015-01-03	SUCCEEDED	00:00:00
 2021-03-19 21:42:46       1166 aws_athena_api_tools_tests/query-daily/3c7f27d3-c04b-4196-aba2-c43c63ff7885.csv.metadata
 2021-03-19 21:42:45      34459 aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv
 2021-03-19 21:42:46       1166 aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv.metadata
-
-[ delete metadata files ]
-delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query-daily/3c7f27d3-c04b-4196-aba2-c43c63ff7885.csv.metadata
-delete: s3://QUERY_OUTPUT/aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv.metadata
-
-[ display query results on s3 without metadata files ]
-2021-03-19 21:42:46      34430 aws_athena_api_tools_tests/query-daily/3c7f27d3-c04b-4196-aba2-c43c63ff7885.csv
-2021-03-19 21:42:45      34459 aws_athena_api_tools_tests/query-daily/c3cf6828-d2e7-4173-a605-fba5cbdad131.csv
 
 [ list database table like '*db_201501 ]
 {
